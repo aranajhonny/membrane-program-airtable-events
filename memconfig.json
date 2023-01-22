@@ -1,0 +1,22 @@
+{
+  "schema": {
+    "types": [
+      {
+        "name": "Root",
+        "actions": [
+          {
+            "name": "setup",
+            "type": "Void"
+          },
+          {
+            "name": "handler",
+            "type": "Void"
+          }
+        ]
+      }
+    ]
+  },
+  "dependencies": {
+    "table": "airtable:tables.one(id:\"tblWX4FnYbtquOjIK\")"
+  }
+}
