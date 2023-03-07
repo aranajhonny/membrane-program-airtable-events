@@ -4,12 +4,14 @@
 import { nodes, root, state } from "membrane";
 
 export async function setup() {
-  nodes.table.changed.$subscribe(root.handler);
-  console.log("subscribed to events");
+  await nodes.table.changed.$subscribe(root.handler);
+}
+
+export async function remove() {
+  await nodes.table.changed.$unsubscribe();
 }
 
 export async function handler({ event }) {
-  const fields = await event.record.fields.$get();
-  console.log(event.type);
+  const fields = await event.record.fields;
   console.log(JSON.stringify(fields, null, 2));
 }

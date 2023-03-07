@@ -1,12 +1,12 @@
 {
   "types": {
-    "clock": {
-      "gref_hash": "da9d1c247b69702ed49d157f0d697d132f917d00f407438e43c7e438c837c024",
-      "type": "sys-clock:Root"
-    },
     "process": {
       "gref_hash": "c7a6cc4739f2a6aa697342cf67d4924b8be757dbc2bd9eae395bc939f10d54ea",
       "type": "sys-process:Root"
+    },
+    "clock": {
+      "gref_hash": "da9d1c247b69702ed49d157f0d697d132f917d00f407438e43c7e438c837c024",
+      "type": "sys-clock:Root"
     },
     "table": {
       "gref_hash": "26462d69722d823657dbeb972b0c1a66e5dee2640b098762c5e97786411ba3dd",
@@ -14,32 +14,6 @@
     }
   },
   "imports": [
-    {
-      "name": "sys-process",
-      "schema": {
-        "types": [
-          {
-            "name": "Root",
-            "description": "",
-            "actions": [],
-            "fields": [
-              {
-                "name": "endpointUrl",
-                "description": "Gets the program's own endpoint URL",
-                "type": "String",
-                "params": [],
-                "hints": {}
-              }
-            ],
-            "events": []
-          }
-        ],
-        "imports": []
-      },
-      "source": {
-        "Program": "tbd"
-      }
-    },
     {
       "name": "airtable",
       "schema": {
@@ -74,7 +48,9 @@
                     "type": "String"
                   }
                 ],
-                "hints": {}
+                "hints": {
+                  "hidden": true
+                }
               },
               {
                 "name": "endpoint",
@@ -121,6 +97,28 @@
                 "type": "String",
                 "params": [],
                 "hints": {}
+              },
+              {
+                "name": "parse",
+                "description": "",
+                "type": "List",
+                "ofType": {
+                  "type": "Ref",
+                  "ofType": "Table"
+                },
+                "params": [
+                  {
+                    "name": "name",
+                    "type": "String"
+                  },
+                  {
+                    "name": "value",
+                    "type": "String"
+                  }
+                ],
+                "hints": {
+                  "hidden": false
+                }
               },
               {
                 "name": "gref",
@@ -472,119 +470,6 @@
           }
         ],
         "imports": [
-          {
-            "name": "sys-process",
-            "schema": {
-              "types": [
-                {
-                  "name": "Root",
-                  "description": "",
-                  "actions": [],
-                  "fields": [
-                    {
-                      "name": "endpointUrl",
-                      "description": "Gets the program's own endpoint URL",
-                      "type": "String",
-                      "params": [],
-                      "hints": {}
-                    }
-                  ],
-                  "events": []
-                }
-              ],
-              "imports": []
-            },
-            "source": {
-              "Program": "tbd"
-            }
-          },
-          {
-            "name": "sys-clock",
-            "schema": {
-              "types": [
-                {
-                  "name": "Root",
-                  "description": "",
-                  "actions": [
-                    {
-                      "name": "sleep",
-                      "description": "",
-                      "type": "Void",
-                      "params": [
-                        {
-                          "name": "key",
-                          "type": "String"
-                        },
-                        {
-                          "name": "seconds",
-                          "type": "Float"
-                        }
-                      ],
-                      "hints": {}
-                    }
-                  ],
-                  "fields": [],
-                  "events": [
-                    {
-                      "name": "timer",
-                      "description": "",
-                      "type": "TimerEvent",
-                      "params": [
-                        {
-                          "name": "key",
-                          "type": "String"
-                        },
-                        {
-                          "name": "spec",
-                          "type": "String"
-                        },
-                        {
-                          "name": "maxCount",
-                          "type": "Int"
-                        }
-                      ],
-                      "hints": {}
-                    },
-                    {
-                      "name": "timerAt",
-                      "description": "",
-                      "type": "TimerEvent",
-                      "params": [
-                        {
-                          "name": "key",
-                          "type": "String"
-                        },
-                        {
-                          "name": "seconds",
-                          "type": "String"
-                        }
-                      ],
-                      "hints": {}
-                    }
-                  ]
-                },
-                {
-                  "name": "TimerEvent",
-                  "description": "",
-                  "actions": [],
-                  "fields": [
-                    {
-                      "name": "id",
-                      "description": "",
-                      "type": "String",
-                      "params": [],
-                      "hints": {}
-                    }
-                  ],
-                  "events": []
-                }
-              ],
-              "imports": []
-            },
-            "source": {
-              "Program": "tbd"
-            }
-          },
           {
             "name": "http",
             "schema": {
@@ -1037,6 +922,119 @@
             "source": {
               "Program": "tbd"
             }
+          },
+          {
+            "name": "sys-process",
+            "schema": {
+              "types": [
+                {
+                  "name": "Root",
+                  "description": "",
+                  "actions": [],
+                  "fields": [
+                    {
+                      "name": "endpointUrl",
+                      "description": "Gets the program's own endpoint URL",
+                      "type": "String",
+                      "params": [],
+                      "hints": {}
+                    }
+                  ],
+                  "events": []
+                }
+              ],
+              "imports": []
+            },
+            "source": {
+              "Program": "tbd"
+            }
+          },
+          {
+            "name": "sys-clock",
+            "schema": {
+              "types": [
+                {
+                  "name": "Root",
+                  "description": "",
+                  "actions": [
+                    {
+                      "name": "sleep",
+                      "description": "",
+                      "type": "Void",
+                      "params": [
+                        {
+                          "name": "key",
+                          "type": "String"
+                        },
+                        {
+                          "name": "seconds",
+                          "type": "Float"
+                        }
+                      ],
+                      "hints": {}
+                    }
+                  ],
+                  "fields": [],
+                  "events": [
+                    {
+                      "name": "timer",
+                      "description": "",
+                      "type": "TimerEvent",
+                      "params": [
+                        {
+                          "name": "key",
+                          "type": "String"
+                        },
+                        {
+                          "name": "spec",
+                          "type": "String"
+                        },
+                        {
+                          "name": "maxCount",
+                          "type": "Int"
+                        }
+                      ],
+                      "hints": {}
+                    },
+                    {
+                      "name": "timerAt",
+                      "description": "",
+                      "type": "TimerEvent",
+                      "params": [
+                        {
+                          "name": "key",
+                          "type": "String"
+                        },
+                        {
+                          "name": "seconds",
+                          "type": "String"
+                        }
+                      ],
+                      "hints": {}
+                    }
+                  ]
+                },
+                {
+                  "name": "TimerEvent",
+                  "description": "",
+                  "actions": [],
+                  "fields": [
+                    {
+                      "name": "id",
+                      "description": "",
+                      "type": "String",
+                      "params": [],
+                      "hints": {}
+                    }
+                  ],
+                  "events": []
+                }
+              ],
+              "imports": []
+            },
+            "source": {
+              "Program": "tbd"
+            }
           }
         ]
       },
@@ -1117,6 +1115,32 @@
               {
                 "name": "id",
                 "description": "",
+                "type": "String",
+                "params": [],
+                "hints": {}
+              }
+            ],
+            "events": []
+          }
+        ],
+        "imports": []
+      },
+      "source": {
+        "Program": "tbd"
+      }
+    },
+    {
+      "name": "sys-process",
+      "schema": {
+        "types": [
+          {
+            "name": "Root",
+            "description": "",
+            "actions": [],
+            "fields": [
+              {
+                "name": "endpointUrl",
+                "description": "Gets the program's own endpoint URL",
                 "type": "String",
                 "params": [],
                 "hints": {}
